@@ -81,7 +81,8 @@ const Weather = () => {
     return <div>Loading...</div>;
   }
 
-  let fiveDaysForecast = hourlyForecastData.list.filter((v, i) => i % 8 === 0);
+  let fiveDaysForecast = hourlyForecastData.list.filter((v, i) => (
+    v.dt_txt.split(" ")[1].substr(0, 2)  === "12"));
   const forecastHourlyTemps = hourlyForecastData.list
     .slice(0, 8)
     .map((data) => (data.main.temp - 273.15).toFixed(2));
