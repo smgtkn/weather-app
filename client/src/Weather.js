@@ -4,6 +4,8 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
+import {BrowserView, MobileView} from 'react-device-detect';
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -135,7 +137,13 @@ const Weather = () => {
   const CurrentWeatherTable = (
     <div style={{ alignItems: "center" }}>
       <h2>
-        {weatherData.name} {(weatherData.main.temp - 273.15).toFixed(2)} °C
+        {weatherData.name} {(weatherData.main.temp - 273.15).toFixed(2)} °C 
+        <img
+          
+            src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`
+            }
+            alt="loading..."
+          />
       </h2>
       <Table striped bordered hover>
         <tbody>
@@ -167,7 +175,8 @@ const Weather = () => {
   const cityOptions = cities.map((data, index) => (
     <option key={index} value={data}>{data}</option>
   ));
-  return (
+  return (<> 
+    <MobileView>
     <div className="d-flex flex-column">
   <div className="bg-dark flex-shrink-0">
     <nav className="nav flex-column">
@@ -189,6 +198,7 @@ const Weather = () => {
           <h1 className="text-center mb-4">Weather Forecast</h1>
         </Col>
       </Row>
+     
       <Row  style={{ justifyContent: "center"}}>
         <Col>
           <Form.Group controlId="city">
@@ -208,6 +218,7 @@ const Weather = () => {
         </Col>
       
       </Row>
+      
       <Row>
         <Col>{CurrentWeatherTable}</Col>
       </Row>
@@ -234,7 +245,86 @@ const Weather = () => {
     </Container>
   </div>
 </div>
+</MobileView>
+<BrowserView>
+<div className="d-flex">
+      <div
+        className="bg-dark flex-shrink-0"
+        style={{ width: "15rem", height: "100vh" }}
+      >
+        <nav className="nav flex-column">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h3 className="text-white">Weather APP</h3>
+          </div>
+          <a className="nav-link text-light" href="/login">
+            Login Page
+          </a>
+          <a className="nav-link text-light" href="https://openweathermap.org/">
+            OpenWeather API
+          </a>
+        </nav>
+      </div>
+      <div className="flex-grow-1">
+        <Container>
+          <Row className="justify-content-md-center ">
+            <Col md="10">
+              <h1 className="text-center mb-4">Weather Forecast</h1>
+            </Col>
+          </Row>
+          
+          <Row style={{ justifyContent: "center", alignItems: "center" }}>
+            <Col md="2">
+            <img
+            style={{ display: "block", height:"100px"}}
+            src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`
+            }
+            alt="loading..."
+          />
+              <Form.Group controlId="city">
+                <Form.Label>Select City</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={city}
+                  onChange={(event) => setCity(event.target.value)}
+                >
+                  <option value={city}>{city}</option>
+                  {cityOptions}
+                </Form.Control>
+              </Form.Group>
 
+              <Button variant="primary" type="submit" onClick={handleSubmit}>
+                Get Forecast
+              </Button>
+            </Col>
+            <Col md="5">{CurrentWeatherTable}</Col>
+            <Col md="5">
+              <Line data={data} options={options}></Line>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md="2"></Col>
+
+            {forecastTempsCards}
+          </Row>
+          <Row className="mt-0">
+          <Col>
+            <iframe
+              title="OpenWeatherMap"
+              width="100%"
+              height="400px"
+             
+              
+              src={`https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=0&lon=0&zoom=2`}
+            ></iframe>
+          </Col>
+        </Row>
+        </Container>
+      </div>
+    </div>
+
+</BrowserView>
+</>
   );
 };
 

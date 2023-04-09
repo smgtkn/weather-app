@@ -10,6 +10,7 @@ const port = 5000;
 const privateKey="myKey"
 const app = express();
 const cors = require('cors');
+
 app.use(express.json());
 
 app.use(cors());
@@ -151,6 +152,7 @@ app.delete('/cities/:name', verifyToken, (req, res) => {
     });
   });
 // Start the server
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server listening at http://0.0.0.0:${port}`);
+  });
+  
