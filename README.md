@@ -41,4 +41,5 @@ npm run dev
 
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) with your browser to see the result. 
+( Visit http://`<your-local-ip>`:3000 on your mobile phone)
