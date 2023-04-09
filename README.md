@@ -7,7 +7,7 @@ Add an .env file under the path /client with the following lines:
 
 ``` 
 REACT_APP_OPENWEATHERMAP_API_KEY=your-api-key
-REACT_APP_API_URL = 'http://localhost:5000'
+REACT_APP_API_URL = 'http://0.0.0.0:5000'
 ``` 
 Install node modules:
 
